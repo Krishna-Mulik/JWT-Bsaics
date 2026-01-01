@@ -1,13 +1,16 @@
 const express = require("express");
+const notFound = require("./middleware/not-found");
+const errorHandler = require("./middleware/error-handler");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("hi");
-});
+app.use(express.static("./public"));
+
+app.use(notFound);
+app.use(errorHandler);
 
 const start = () => {
   try {
