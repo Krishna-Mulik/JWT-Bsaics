@@ -1,3 +1,4 @@
+const { StatusCodes } = require("http-status-codes");
 const { CustomAPIError } = require("../errors/custom-error");
 
 const errorHandler = (err, req, res, next) => {
@@ -5,7 +6,9 @@ const errorHandler = (err, req, res, next) => {
     return res.status(err.statusCode).send(err.message);
   }
 
-  return res.status(500).send("internal server error");
+  return res
+    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .send("internal server error", err);
 };
 
 module.exports = errorHandler;
